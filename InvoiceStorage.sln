@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceStorage", "InvoiceStorage\InvoiceStorage.csproj", "{367E9833-F12D-4EDC-863C-215DBE96FB64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDFCHARPConversion", "PDFCHARPConversion\PDFCHARPConversion.csproj", "{92B3300E-2EF4-4EBC-B218-396527B68741}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordConvertionNPoi", "WordConvertionNPoi\WordConvertionNPoi.csproj", "{F51AF429-B0AA-4307-B522-5D8709899352}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Sqlite.Databases", "Infra.Sqlite.Databases\Infra.Sqlite.Databases.csproj", "{767AD5B2-84D2-4E84-A1D9-CB1A8CC83A42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfraSqlLite.Data", "InfraSqlLite.Data\InfraSqlLite.Data.csproj", "{5C689BC6-C4CF-4DFB-8298-164FBD393A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.SqlServer.Data", "Infra.SqlServer.Data\Infra.SqlServer.Data.csproj", "{9E4FABFB-5C15-48FF-93F8-B41866BE25C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{367E9833-F12D-4EDC-863C-215DBE96FB64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{367E9833-F12D-4EDC-863C-215DBE96FB64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{367E9833-F12D-4EDC-863C-215DBE96FB64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{367E9833-F12D-4EDC-863C-215DBE96FB64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B3300E-2EF4-4EBC-B218-396527B68741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92B3300E-2EF4-4EBC-B218-396527B68741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92B3300E-2EF4-4EBC-B218-396527B68741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92B3300E-2EF4-4EBC-B218-396527B68741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F51AF429-B0AA-4307-B522-5D8709899352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F51AF429-B0AA-4307-B522-5D8709899352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F51AF429-B0AA-4307-B522-5D8709899352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F51AF429-B0AA-4307-B522-5D8709899352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{767AD5B2-84D2-4E84-A1D9-CB1A8CC83A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{767AD5B2-84D2-4E84-A1D9-CB1A8CC83A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{767AD5B2-84D2-4E84-A1D9-CB1A8CC83A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{767AD5B2-84D2-4E84-A1D9-CB1A8CC83A42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C689BC6-C4CF-4DFB-8298-164FBD393A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C689BC6-C4CF-4DFB-8298-164FBD393A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C689BC6-C4CF-4DFB-8298-164FBD393A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C689BC6-C4CF-4DFB-8298-164FBD393A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E4FABFB-5C15-48FF-93F8-B41866BE25C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E4FABFB-5C15-48FF-93F8-B41866BE25C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E4FABFB-5C15-48FF-93F8-B41866BE25C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E4FABFB-5C15-48FF-93F8-B41866BE25C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44F838B5-B5BD-4F87-861F-B344F40025C8}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,257 @@
+﻿<UserControl x:Class="InvoiceStorage.Views.AddingInvoice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InvoiceStorage.Views" xmlns:viewmodel="clr-namespace:InvoiceStorage.ViewModel" 
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1060">
+    
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        <Style TargetType="DataGrid" x:Key="RoundedDataGridStyle">
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="#FFCE3678"/>
+                        <Setter Property ="FontSize" Value="18"/>
+                        <Setter Property="FontFamily" Value="Bahnschrift Condensed"/> 
+                        
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            
+            <Setter Property="HorizontalGridLinesBrush" Value="Black"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="RowHeaderStyle">
+            
+                
+                <Setter.Value>
+                    <Style TargetType="DataGridRowHeader">
+                        <Setter Property="Width" Value="50"/>
+                        <Setter Property="Background" Value="Green"/>
+                        <Setter Property="FontFamily" Value="Gill Sans Ultra Bold Condensed"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridRowHeader">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RowHeight" Value="35"/>
+            <Setter Property="RowBackground" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="Black"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Black"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="FontFamily" Value="Arial" />
+        </Style>
+        
+
+        <Style TargetType="Button" x:Key="RoundedButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="5" Background="#33691E">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="black"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#7CB342"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="RoundedButtonStyleReset">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="5" Background="#FF800038">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="black"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#7CB342"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style TargetType="TextBox" x:Key="RoundedTextBoxStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DatePicker" x:Key="RoundedDatePickerStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DatePicker">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5">
+                            <DatePicker SelectedDate="{Binding SelectedDate, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                        Height="25"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </UserControl.Resources>
+    <Grid Background="#FF080808">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120" />
+                <RowDefinition Height="200" />
+                <RowDefinition Height="120" />
+                <RowDefinition Height="190" />
+                <RowDefinition Height="110"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock  Text="_______________________________________________________" FontSize="14" Margin="20,0,0,0" Foreground="#FF800038" />
+                <TextBlock  Margin="20,20" Text="Customer" Foreground="White" />
+                <TextBox Text="{Binding Customer}"  Style="{StaticResource RoundedTextBoxStyle}"  FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,40" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320"/>
+                <TextBlock Text="Date" Margin="20,70,20,37" Foreground="White" />
+                <DatePicker SelectedDate="{Binding Date}" Style="{StaticResource RoundedDatePickerStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,90,0,0 " FontSize="14" Width="320"/>
+
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock Text="_______________________________________________________" FontSize="14" Margin="20,0,0,0" Foreground="#FF800038" />
+                <TextBlock Margin="20" Text="Product Name" Foreground="White" />
+                <TextBox Text="{Binding ProductName}" Style="{StaticResource RoundedTextBoxStyle}"  FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,40" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320"/>
+                <TextBlock Margin="20,70" Text="Quantity" Foreground="White" />
+                <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Quantity}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320" PreviewTextInput="TextBox_PreviewTextInput"/>
+                <TextBlock Margin="20,120,0,0" Text="Price" Foreground="White" />
+                <TextBox Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding Price}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,140,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320" PreviewTextInput="TextBoxPrice_PreviewTextInput"/>
+                <Button x:Name="AddItemButton"   Command="{Binding AddItemOnlistCommand}" Style="{StaticResource RoundedButtonStyle}" Margin="0,10,60,0" Content="Add on items list" Width="320" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="right" Foreground="White">
+                    
+                </Button>
+                
+            </Grid>
+            <Grid Grid.Row="2">
+                <TextBlock Text="_______________________________________________________" FontSize="14" Margin="20,0,0,0" Foreground="#FF800038" />
+                <TextBlock Margin="20" Text="Tax Percent" Foreground="White" />
+                <TextBox  x:Name="TaxPercent" Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding TaxPercent}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,40" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" PreviewTextInput="TextBoxPercent_PreviewTextInput" />
+                <TextBlock Text="Reduction Percent" Margin="20,70,20,28" Foreground="White"/>
+                <TextBox  x:Name="ReductionPercent" Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding RedcPercent}"  FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320" PreviewTextInput="TextBoxPercent_PreviewTextInput" />
+            </Grid>
+            <Grid Grid.Row="4">
+                <TextBlock VerticalAlignment="Top" Text="_______________________________________________________" FontSize="14" Margin="20,0,0,0" Foreground="#FF800038" />
+                <Button Command="{Binding ConvertToExcelCommand}" Style="{StaticResource RoundedButtonStyle}" Margin="0,20,60,0" Content="Excel Export" Width="320" Height="25" VerticalAlignment="Top" HorizontalAlignment="right" Foreground="White"/>
+                <Button Command="{Binding ConvertToPDFCommand}" Style="{StaticResource RoundedButtonStyle}" Margin="0,50,60,0" Content="PDF Export" Width="320" Height="25" VerticalAlignment="Top" HorizontalAlignment="right" BorderBrush="Black" Foreground="White"/>
+                <Button Command="{Binding ConvertToWordCommand}" Style="{StaticResource RoundedButtonStyle}" Margin="0,80,60,0" Content="Word Export" Width="320" Height="25" VerticalAlignment="Top" HorizontalAlignment="right" Foreground="White"/>
+            
+            </Grid>
+   
+            <Grid Grid.Row="3">
+                <TextBlock Text="_______________________________________________________" FontSize="14" Margin="20,20,0,0" Foreground="#FF800038" />
+                <StackPanel VerticalAlignment="Top" Height="20" Margin="20,10" Orientation="Horizontal">
+                    <CheckBox  IsChecked="{Binding IsShipped ,Mode=TwoWay}" Margin="0,2,0,0" FontSize="16" Height="20" Width="20" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+                    <TextBlock Foreground="#7CB342" Margin="0,0"  Text="Shipping" FontFamily="Bahnschrift Light" FontSize="18"/>
+                </StackPanel>
+                <Grid >
+                    
+                    <Grid>
+                        <TextBlock x:Name="Tex1" Visibility="Hidden"  Margin="20,40,0,0" Text="Shipping Method" Foreground="White" />
+                        <TextBox x:Name="Text2" Visibility="Hidden" Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding ShippingMethode}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,60" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320"/>
+                        <TextBlock x:Name="Text3" Visibility="Hidden" Margin="20,90,0,0" Text="Shipping To" Foreground="White" />
+                        <TextBox x:Name="Text4" Visibility="Hidden" Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding ShippingTo}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320"/>
+                        <TextBlock x:Name="Text5" Visibility="Hidden" Margin="20,140,20,0"  Text="Shipping Price" Foreground="White" />
+                        <TextBox  x:Name="Text6" Visibility="Hidden" Style="{StaticResource RoundedTextBoxStyle}"  Text="{Binding ShippingAmont}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,165,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320" PreviewTextInput="TextBoxPrice_PreviewTextInput"/>
+                    </Grid>
+                    
+
+                </Grid>
+                
+                
+            </Grid>
+            <Grid Grid.Row="5">
+                <TextBlock VerticalAlignment="Top" Margin="20,0,0,0" Text="_______________________________________________________" FontSize="14"  Foreground="#7CB342" />
+
+                <Button Style="{StaticResource RoundedButtonStyleReset}" Margin="20,0,0,10" Content="Reset" Width="320" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Foreground="White"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Grid>
+
+                <DataGrid IsReadOnly="True" SelectionChanged="DataGridInvoice_SelectionChanged" x:Name="DataGridInvoice" SelectedItem="{Binding SelectedItem ,Mode=TwoWay}" Foreground="White" Style="{StaticResource RoundedDataGridStyle}" ItemsSource="{Binding Itemsinvoice , Mode=TwoWay}"  ColumnHeaderHeight="30" Margin="0,10,10,60" Background="#FF080808" BorderBrush="#FF080808" AlternatingRowBackground="Black">
+                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding ProductName}" Header="ProductName" Width="*"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="120"/>
+                        <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="80"/>
+                        <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="150"/>
+                        <DataGridTextColumn Width="60"/>
+                        
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                <StackPanel Margin="10,15" HorizontalAlignment="Right" Orientation="Horizontal">
+
+
+
+                    <Button x:Name="DeleteItem" Visibility="Hidden" Command="{Binding DeleteItemCommand}" BorderBrush="Black" Background="Transparent"  Margin="0,0" Width="30" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <Image  Source="/Views/icons8-delete-30.png" Width="20" Height="20" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                
+            </Grid>
+            <Grid Grid.Row="2">
+                <TextBlock Text="{Binding Response}" FontSize="20" Margin="0,5" VerticalAlignment="Bottom" Foreground="#FF7BFF42" FontFamily="Bahnschrift Condensed" />
+                
+            </Grid>
+            
+
+        </Grid>
+    </Grid>
+</UserControl>

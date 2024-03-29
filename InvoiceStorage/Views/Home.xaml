@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="InvoiceStorage.Views.Home"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InvoiceStorage.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1060">
+    <UserControl.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF191E4B"/>
+                              
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF191E4B"/>
+                                
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="Black" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Border Margin="50" BorderBrush="#7CB342" BorderThickness="5" CornerRadius="12">
+                <Grid  Background="#7CB342">
+                    <Image Width="300" HorizontalAlignment="Left" Source="/Views/Untitled-2.png" />
+                    <Grid Width="600">
+                        <TextBlock Text="Invoice Storage" FontSize="72" />
+                        <TextBlock VerticalAlignment="Center" Text="Some Text here ...." FontSize="32"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid Margin="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                 
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button Style="{StaticResource CustomButtonStyle}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Height="300" Width="250" Orientation="Vertical">
+                                <Image VerticalAlignment="Top"   Width="100" Height="100" Margin="0 0 5 0" Source="/Views/icons8-export-96.png"/>
+                                <TextBlock Margin="0,5" HorizontalAlignment="Center" FontSize="24" Foreground="#7CB342" Text="Export Invoices" VerticalAlignment="Center"/>
+                                <TextBlock Width="200"  Foreground="white" Text="Export non storable invoices to excel,"/>
+                                <TextBlock Width="76"  Foreground="white" Text="pdf and word"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button Style="{StaticResource CustomButtonStyle}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Height="300" Width="250" Orientation="Vertical">
+                                <Image VerticalAlignment="Top"   Width="100" Height="100" Margin="0 0 5 0" Source="/Views/icons8-import-96.png"/>
+                                <TextBlock Margin="0,5" HorizontalAlignment="Center" FontSize="24" Foreground="#7CB342" Text="Import Invoices" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Button Style="{StaticResource CustomButtonStyle}" Background="Transparent">
+                        <Button.Content>
+                            <StackPanel Height="300" Width="300" Orientation="Vertical">
+                                <Image VerticalAlignment="Top"   Width="100" Height="100" Margin="0 0 5 0" Source="/Views/icons8-database-100.png"/>
+                                <TextBlock Margin="0,5" HorizontalAlignment="Center" FontSize="24" Foreground="#7CB342" Text="Datbase Projects" VerticalAlignment="Center"/>
+                                <TextBlock Width="236"  Foreground="white" Text="Create own databases for sales and invoices"/>
+                                <TextBlock Width="250"  Foreground="white" Text="Export stored invoices invoices to pdf excel and" Height="15"/>
+                                <TextBlock Width="33"  Foreground="white" Text="excel" Height="15"/>
+                                <TextBlock Foreground="White" Text="Release sales stats and charts" Width="157"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+                
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

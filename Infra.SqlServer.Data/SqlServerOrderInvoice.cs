@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infra.SqlServer.Data
+{
+    public class SqlServerOrderInvoice
+    {
+        public Guid Id { get; set; }
+        public string Customer { get; set; }
+        public List<SqlServerItem> Items { get; set; }
+        public decimal SubTotal { get; set; }
+        public bool WithShipping { get; set; }
+        public string ShippingMethod { get; set; }
+        public string ShippingTo { get; set; }
+        public decimal ShippingAmount { get; set; }
+        public decimal TaxPercent { get; set; }
+        public decimal TaxAmount { get; set; }
+        public decimal ReductionPercent { get; set; }
+        public decimal ReductionAmount { get; set; }
+        public decimal Total { get; set; }
+    }
+}

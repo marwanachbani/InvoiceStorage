@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <PackageIcon>Untitled-2.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="error.png" />
+    <None Remove="icons8-database-30.png" />
+    <None Remove="icons8-export-30 %281%29.png" />
+    <None Remove="icons8-home-30.png" />
+    <None Remove="icons8-import-30 %281%29.png" />
+    <None Remove="icons8-option-30 %281%29.png" />
+    <None Remove="Untitled-2.png" />
+    <None Remove="Views\icons8-access-100.png" />
+    <None Remove="Views\icons8-create-100.png" />
+    <None Remove="Views\icons8-database-100.png" />
+    <None Remove="Views\icons8-delete-30.png" />
+    <None Remove="Views\icons8-edit-30 %281%29.png" />
+    <None Remove="Views\icons8-export-30 %281%29.png" />
+    <None Remove="Views\icons8-export-96.png" />
+    <None Remove="Views\icons8-import-96.png" />
+    <None Remove="Views\icons8-option-100 %281%29.png" />
+    <None Remove="Views\icons8-option-100.png" />
+    <None Remove="Views\Untitled-2.jpg" />
+    <None Remove="Views\Untitled-2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\Untitled-2.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+		
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Infra.Sqlite.Databases\Infra.Sqlite.Databases.csproj" />
+	  <ProjectReference Include="..\Infra.SqlServer.Data\Infra.SqlServer.Data.csproj" />
+	  <ProjectReference Include="..\InfraSqlLite.Data\InfraSqlLite.Data.csproj" />
+	  <ProjectReference Include="..\PDFCHARPConversion\PDFCHARPConversion.csproj" />
+	  <ProjectReference Include="..\WordConvertionNPoi\WordConvertionNPoi.csproj" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="error.png" />
+    <Resource Include="icons8-database-30.png" />
+    <Resource Include="icons8-export-30 (1).png" />
+    <Resource Include="icons8-home-30.png" />
+    <Resource Include="icons8-import-30 (1).png" />
+    <Resource Include="icons8-option-30 (1).png" />
+    <Resource Include="Untitled-2.png" />
+    <Resource Include="Views\icons8-access-100.png" />
+    <Resource Include="Views\icons8-create-100.png" />
+    <Resource Include="Views\icons8-database-100.png" />
+    <Resource Include="Views\icons8-delete-30.png" />
+    <Resource Include="Views\icons8-edit-30 (1).png" />
+    <Resource Include="Views\icons8-export-30 (1).png" />
+    <Resource Include="Views\icons8-export-96.png" />
+    <Resource Include="Views\icons8-import-96.png" />
+    <Resource Include="Views\icons8-option-100 (1).png" />
+    <Resource Include="Views\icons8-option-100.png" />
+    <Resource Include="Views\Untitled-2.jpg" />
+    <Resource Include="Views\Untitled-2.png" />
+  </ItemGroup>
+
+</Project>
