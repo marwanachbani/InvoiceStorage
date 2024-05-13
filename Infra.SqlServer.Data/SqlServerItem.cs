@@ -8,7 +8,16 @@ namespace Infra.SqlServer.Data
 {
     public class SqlServerItem
     {
-        public Guid Id { get; set; }
+        public SqlServerItem(Guid orderId, string productName, decimal price, int quantity, decimal total)
+        {
+            OrderId = orderId;
+            ProductName = productName;
+            Price = price;
+            Quantity = quantity;
+            Total = total;
+        }
+
+        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid OrderId { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }

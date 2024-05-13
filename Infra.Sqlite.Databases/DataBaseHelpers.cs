@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace Infra.Sqlite.Databases
@@ -85,9 +86,9 @@ namespace Infra.Sqlite.Databases
             }
         }
 
-        public List<Databases> GetAllDatabases()
+        public ObservableCollection<Databases> GetAllDatabases()
         {
-            List<Databases> databases = new List<Databases>();
+            ObservableCollection<Databases> databases = new ObservableCollection<Databases>();
 
             using (SqliteConnection connection = new SqliteConnection(_connectionString))
             {
@@ -116,6 +117,39 @@ namespace Infra.Sqlite.Databases
             }
 
             return databases;
+        }
+        public Databases GetDatabaseByName(string databaseName)
+        {
+            Databases database = null;
+
+            using (SqliteConnection connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                string selectSql = "SELECT * FROM DatabasesTable WHERE DatabaseName = @DatabaseName;";
+
+                using (SqliteCommand command = new SqliteCommand(selectSql, connection))
+                {
+                    command.Parameters.AddWithValue("@DatabaseName", databaseName);
+
+                    using (SqliteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            database = new Databases
+                            (
+                                reader["DatabaseName"].ToString(),
+                                reader["ConnectionString"].ToString(),
+                                reader["DatabaseInfra"].ToString(),
+                                reader["UserName"].ToString(),
+                                reader["Password"].ToString()
+                            );
+                        }
+                    }
+                }
+            }
+
+            return database;
         }
     }
 }

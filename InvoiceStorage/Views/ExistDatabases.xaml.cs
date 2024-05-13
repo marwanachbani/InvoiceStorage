@@ -17,14 +17,19 @@ using System.Windows.Shapes;
 namespace InvoiceStorage.Views
 {
     /// <summary>
-    /// Interaction logic for DBProject.xaml
+    /// Interaction logic for ExistDatabases.xaml
     /// </summary>
-    public partial class DBProject : UserControl
+    public partial class ExistDatabases : UserControl
     {
-        public DBProject()
+        public ExistDatabases()
         {
-            DataContext = new DbProjectVM();
+            DataContext = new ExistDatabasesVM();
             InitializeComponent();
+        }
+
+        private void DataGridDatabase_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }

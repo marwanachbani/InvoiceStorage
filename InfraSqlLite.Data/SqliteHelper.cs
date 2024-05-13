@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +65,7 @@ namespace InfraSqlLite.Data
         {
             string createTableSql = @"CREATE TABLE IF NOT EXISTS OrderInvoice (
                                     Id TEXT PRIMARY KEY,
+                                    InvoiceDate datetime ,
                                     Customer TEXT,
                                     SubTotal DECIMAL,
                                     WithShipping INTEGER,
@@ -202,13 +204,15 @@ namespace InfraSqlLite.Data
             {
                 connection.Open();
 
-                string insertSql = @"INSERT INTO OrderInvoice (Id, Customer, SubTotal, WithShipping, ShippingMethod, ShippingTo, ShippingAmount, TaxPercent, TaxAmount, ReductionPercent, ReductionAmount, Total)
-                             VALUES (@Id, @Customer, @SubTotal, @WithShipping, @ShippingMethod, @ShippingTo, @ShippingAmount, @TaxPercent, @TaxAmount, @ReductionPercent, @ReductionAmount, @Total);";
+                string insertSql = @"INSERT INTO OrderInvoice (Id,DateInvoice, Customer, SubTotal, WithShipping, ShippingMethod, ShippingTo, ShippingAmount, TaxPercent, TaxAmount, ReductionPercent, ReductionAmount, Total)
+                             VALUES (@Id, @Customer,@Date, @SubTotal, @WithShipping, @ShippingMethod, @ShippingTo, @ShippingAmount, @TaxPercent, @TaxAmount, @ReductionPercent, @ReductionAmount, @Total);";
 
                 using (SqliteCommand command = new SqliteCommand(insertSql, connection))
                 {
                     command.Parameters.AddWithValue("@Id", invoice.Id.ToString());
+
                     command.Parameters.AddWithValue("@Customer", invoice.Customer);
+                    command.Parameters.AddWithValue("@Date", invoice.Date);
                     command.Parameters.AddWithValue("@SubTotal", invoice.SubTotal);
                     command.Parameters.AddWithValue("@WithShipping", invoice.WithShipping);
                     command.Parameters.AddWithValue("@ShippingMethod", invoice.ShippingMethod);
@@ -233,6 +237,7 @@ namespace InfraSqlLite.Data
 
                 string updateSql = @"UPDATE OrderInvoice
                              SET Customer = @Customer,
+                                 InvoiceDate = @Date ,
                                  SubTotal = @SubTotal,
                                  WithShipping = @WithShipping,
                                  ShippingMethod = @ShippingMethod,
@@ -248,6 +253,7 @@ namespace InfraSqlLite.Data
                 using (SqliteCommand command = new SqliteCommand(updateSql, connection))
                 {
                     command.Parameters.AddWithValue("@Customer", invoice.Customer);
+                    command.Parameters.AddWithValue("@Date", invoice.Date);
                     command.Parameters.AddWithValue("@SubTotal", invoice.SubTotal);
                     command.Parameters.AddWithValue("@WithShipping", invoice.WithShipping);
                     command.Parameters.AddWithValue("@ShippingMethod", invoice.ShippingMethod);
@@ -282,9 +288,9 @@ namespace InfraSqlLite.Data
             }
         }
 
-        public List<SqliteOrderInvoice> GetAllInvoices()
+        public ObservableCollection<SqliteOrderInvoice> GetAllInvoices()
         {
-            List<SqliteOrderInvoice> invoices = new List<SqliteOrderInvoice>();
+            ObservableCollection<SqliteOrderInvoice> invoices = new ObservableCollection<SqliteOrderInvoice>();
 
             using (SqliteConnection connection = new SqliteConnection(_connectionString))
             {
@@ -301,6 +307,7 @@ namespace InfraSqlLite.Data
                             SqliteOrderInvoice invoice = new SqliteOrderInvoice
                             {
                                 Id = Guid.Parse(reader["Id"].ToString()),
+                                Date = Convert.ToDateTime(reader["Date"]),
                                 Customer = reader["Customer"].ToString(),
                                 SubTotal = Convert.ToDecimal(reader["SubTotal"]),
                                 WithShipping = Convert.ToBoolean(reader["WithShipping"]),
@@ -343,6 +350,7 @@ namespace InfraSqlLite.Data
                             SqliteOrderInvoice invoice = new SqliteOrderInvoice
                             {
                                 Id = Guid.Parse(reader["Id"].ToString()),
+                                Date = Convert.ToDateTime(reader["Date"]),
                                 Customer = reader["Customer"].ToString(),
                                 SubTotal = Convert.ToDecimal(reader["SubTotal"]),
                                 WithShipping = Convert.ToBoolean(reader["WithShipping"]),

@@ -17,13 +17,13 @@ using System.Windows.Shapes;
 namespace InvoiceStorage.Views
 {
     /// <summary>
-    /// Interaction logic for DBProject.xaml
+    /// Interaction logic for InvoiceDatabaseDetails.xaml
     /// </summary>
-    public partial class DBProject : UserControl
+    public partial class InvoiceDatabaseDetails : UserControl
     {
-        public DBProject()
+        public InvoiceDatabaseDetails()
         {
-            DataContext = new DbProjectVM();
+            DataContext = new InvoiceDatabaseDetailVM();
             InitializeComponent();
         }
     }

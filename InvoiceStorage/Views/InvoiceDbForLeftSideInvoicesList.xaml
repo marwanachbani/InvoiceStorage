@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="InvoiceStorage.Views.InvoiceDbForLeftSideInvoicesList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InvoiceStorage.Views" xmlns:viewmodel="clr-namespace:InvoiceStorage.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:InvoiceDbForLeftSideInvoicesListVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="760" d:DesignWidth="300">
+    <Grid Background="Black" >
+        <ListView BorderBrush="Black" Background="Black" SelectedItem="{Binding SelectedInvoice}" ItemsSource="{Binding Invoices }" SelectionChanged="ListView_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                        <!-- Image (assuming it's a repeated image) -->
+                        <Image  Width="50" Height="50" Margin="5"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="White" Text="{Binding Id }" Margin="5"/>
+                            <StackPanel Orientation="Horizontal">
+                                
+                                <!-- Customer Name -->
+                                <TextBlock Foreground="White" Text="{Binding Customer}" Margin="5"/>
+                                <!-- Date -->
+                                <TextBlock Foreground="White" Text="{Binding Date}" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <!-- Invoice Number -->
+                        
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

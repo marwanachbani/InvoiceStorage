@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDFCHARPConversion", "PDFCH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordConvertionNPoi", "WordConvertionNPoi\WordConvertionNPoi.csproj", "{F51AF429-B0AA-4307-B522-5D8709899352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.Sqlite.Databases", "Infra.Sqlite.Databases\Infra.Sqlite.Databases.csproj", "{767AD5B2-84D2-4E84-A1D9-CB1A8CC83A42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Sqlite.Databases", "Infra.Sqlite.Databases\Infra.Sqlite.Databases.csproj", "{767AD5B2-84D2-4E84-A1D9-CB1A8CC83A42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfraSqlLite.Data", "InfraSqlLite.Data\InfraSqlLite.Data.csproj", "{5C689BC6-C4CF-4DFB-8298-164FBD393A04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfraSqlLite.Data", "InfraSqlLite.Data\InfraSqlLite.Data.csproj", "{5C689BC6-C4CF-4DFB-8298-164FBD393A04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra.SqlServer.Data", "Infra.SqlServer.Data\Infra.SqlServer.Data.csproj", "{9E4FABFB-5C15-48FF-93F8-B41866BE25C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.SqlServer.Data", "Infra.SqlServer.Data\Infra.SqlServer.Data.csproj", "{9E4FABFB-5C15-48FF-93F8-B41866BE25C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -193,7 +193,7 @@
                     <TextBlock Foreground="#7CB342" Margin="0,0"  Text="Shipping" FontFamily="Bahnschrift Light" FontSize="18"/>
                 </StackPanel>
                 <Grid >
-                    
+
                     <Grid>
                         <TextBlock x:Name="Tex1" Visibility="Hidden"  Margin="20,40,0,0" Text="Shipping Method" Foreground="White" />
                         <TextBox x:Name="Text2" Visibility="Hidden" Style="{StaticResource RoundedTextBoxStyle}" Text="{Binding ShippingMethode}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,60" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320"/>
@@ -202,11 +202,11 @@
                         <TextBlock x:Name="Text5" Visibility="Hidden" Margin="20,140,20,0"  Text="Shipping Price" Foreground="White" />
                         <TextBox  x:Name="Text6" Visibility="Hidden" Style="{StaticResource RoundedTextBoxStyle}"  Text="{Binding ShippingAmont}" FontStretch="UltraExpanded" FontSize="18" Height="25" HorizontalAlignment="Left" Margin="20,165,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="320" PreviewTextInput="TextBoxPrice_PreviewTextInput"/>
                     </Grid>
-                    
+
 
                 </Grid>
-                
-                
+
+
             </Grid>
             <Grid Grid.Row="5">
                 <TextBlock VerticalAlignment="Top" Margin="20,0,0,0" Text="_______________________________________________________" FontSize="14"  Foreground="#7CB342" />

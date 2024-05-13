@@ -21,9 +21,13 @@ namespace InvoiceStorage.ViewModel
             {
                 SwitchToCreateDatabase();
             });
+            Messenger.Register<MainWindowVM, ViewMessageSent>(this, (m, t) =>
+            {
+                SwitchTo(t.Value.View); 
+            });
         }
         [ObservableProperty]
-        private UserControl pageContent = new CreateProject();
+        private UserControl pageContent = new AccessView();
 
         [RelayCommand]
         public async Task SwitchtoHome()
@@ -51,7 +55,10 @@ namespace InvoiceStorage.ViewModel
         {
             PageContent = new CreateDatabase();
         }
-        
+        public void SwitchTo(UserControl userControl)
+        {
+            PageContent = userControl; 
+        }
         
     }
 }

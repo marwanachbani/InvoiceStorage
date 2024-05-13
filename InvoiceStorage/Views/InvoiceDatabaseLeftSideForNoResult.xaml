@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="InvoiceStorage.Views.InvoiceDatabaseLeftSideForNoResult"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InvoiceStorage.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="760" d:DesignWidth="300">
+    <Grid Background="Black" >
+        <TextBlock Foreground="White" Text="No invoice added yet" />
+    </Grid>
+</UserControl>

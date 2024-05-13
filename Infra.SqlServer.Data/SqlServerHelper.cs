@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -65,6 +66,7 @@ namespace Infra.SqlServer.Data
 
                     CREATE TABLE OrderInvoice (
                         Id UNIQUEIDENTIFIER PRIMARY KEY,
+                        InvoiceDate datetime ,
                         Customer NVARCHAR(255),
                         SubTotal DECIMAL(18, 2),
                         WithShipping BIT,
@@ -92,6 +94,7 @@ namespace Infra.SqlServer.Data
                 return $"Error creating database: {ex.Message}";
             }
         }
+
 
         // CRUD operations for CompanyInfo table
         public void AddCompanyInfo(SqlServerCompanyInfo companyInfo)
@@ -140,8 +143,8 @@ namespace Infra.SqlServer.Data
         {
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Execute(@"INSERT INTO OrderInvoice (Id, Customer, SubTotal, WithShipping, ShippingMethod, ShippingTo, ShippingAmount, TaxPercent, TaxAmount, ReductionPercent, ReductionAmount, Total)
-                                     VALUES (@Id, @Customer, @SubTotal, @WithShipping, @ShippingMethod, @ShippingTo, @ShippingAmount, @TaxPercent, @TaxAmount, @ReductionPercent, @ReductionAmount, @Total);", invoice);
+                connection.Execute(@"INSERT INTO OrderInvoice (Id, InvoiceDate ,Customer, SubTotal, WithShipping, ShippingMethod, ShippingTo, ShippingAmount, TaxPercent, TaxAmount, ReductionPercent, ReductionAmount, Total)
+                                     VALUES (@Id,@Date ,@Customer, @SubTotal, @WithShipping, @ShippingMethod, @ShippingTo, @ShippingAmount, @TaxPercent, @TaxAmount, @ReductionPercent, @ReductionAmount, @Total);", invoice);
             }
         }
 
@@ -151,6 +154,7 @@ namespace Infra.SqlServer.Data
             {
                 connection.Execute(@"UPDATE OrderInvoice
                                      SET Customer = @Customer,
+                                         DateInvoice = @Date,
                                          SubTotal = @SubTotal,
                                          WithShipping = @WithShipping,
                                          ShippingMethod = @ShippingMethod,
@@ -173,11 +177,18 @@ namespace Infra.SqlServer.Data
             }
         }
 
-        public List<SqlServerOrderInvoice> GetAllInvoices()
+        public ObservableCollection<SqlServerOrderInvoice> GetAllInvoices()
         {
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {
-                return connection.Query<SqlServerOrderInvoice>("SELECT * FROM OrderInvoice;").ToList();
+                
+                var list =  connection.Query<SqlServerOrderInvoice>("SELECT * FROM OrderInvoice;").ToList();
+                var collec= new ObservableCollection<SqlServerOrderInvoice>();
+                foreach (var item in list)
+                {
+                    collec.Add(item); 
+                }
+                return collec;
             }
         }
 

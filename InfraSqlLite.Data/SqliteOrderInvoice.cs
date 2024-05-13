@@ -10,6 +10,7 @@ namespace InfraSqlLite.Data
     {
         public Guid Id { get; set; }
         public string Customer { get; set; }
+        public DateTime Date { get; set; }
         public List<SqliteItem> Items { get; set; }
         public decimal SubTotal { get; set; }
         public bool WithShipping { get; set; }

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="InvoiceStorage.Views.InvoiceDatabases"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InvoiceStorage.Views" xmlns:viewmodel="clr-namespace:InvoiceStorage.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:InvoiceDatabasesVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1060" Loaded="Invoice_loaded">
+    <Grid Background="Black"  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding SwichtoAddInvoiceViewCommand}" BorderBrush="Black" Background="Transparent" Width="40" >
+                    <Button.Content>
+                        <Image Source="/Views/icons8-add-30 (1).png" />
+                    </Button.Content>
+                </Button>
+                <Button BorderBrush="Black" Background="Transparent" Width="40" >
+                    <Button.Content>
+                        <Image Source="/Views/icons8-edit-30 (2).png" />
+                    </Button.Content>
+                </Button>
+                <Button BorderBrush="Black" Background="Transparent" Width="40" >
+                    <Button.Content>
+                        <Image Source="/Views/icons8-delete-30 (1).png" />
+                    </Button.Content>
+                </Button>
+                <Button BorderBrush="Black" Background="Transparent" Width="40" >
+                    <Button.Content>
+                        <Image Source="/Views/icons8-export-30 (2).png" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <UserControl Content="{Binding LeftSideContent}" />
+            </Grid>
+            <Grid Grid.Column="1">
+                <UserControl Content="{Binding RightSideContent}" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

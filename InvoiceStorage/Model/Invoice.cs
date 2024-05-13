@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Infra.SqlServer.Data;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infra.SqlServer.Data
+namespace InvoiceStorage.Model
 {
-    public class SqlServerOrderInvoice
+    public class Invoice
     {
-        public SqlServerOrderInvoice(Guid id, string customer, DateTime date, decimal subTotal, bool withShipping, string shippingMethod, string shippingTo, decimal shippingAmount, decimal taxPercent, decimal taxAmount, decimal reductionPercent, decimal reductionAmount, decimal total)
+        public Invoice(Guid id, string customer, List<Item> items, decimal subTotal, bool withShipping, string shippingMethod, string shippingTo, decimal shippingAmount, decimal taxPercent, decimal taxAmount, decimal reductionPercent, decimal reductionAmount, decimal total, DateTime date)
         {
             Id = id;
             Customer = customer;
-            Date = date;
+            Items = items;
             SubTotal = subTotal;
             WithShipping = withShipping;
             ShippingMethod = shippingMethod;
@@ -24,15 +24,13 @@ namespace Infra.SqlServer.Data
             ReductionPercent = reductionPercent;
             ReductionAmount = reductionAmount;
             Total = total;
+            Date = date;
         }
-        public SqlServerOrderInvoice()
-        {
-            
-        }
+
         public Guid Id { get; set; }
-        public string Customer { get; set; }
         public DateTime Date { get; set; }
-        public List<SqlServerItem> Items { get; set; } = new List<SqlServerItem>();
+        public string Customer { get; set; }
+        public List<Item> Items { get; set; }
         public decimal SubTotal { get; set; }
         public bool WithShipping { get; set; }
         public string ShippingMethod { get; set; }

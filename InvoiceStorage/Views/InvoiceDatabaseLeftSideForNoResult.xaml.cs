@@ -1,5 +1,4 @@
-﻿using InvoiceStorage.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +16,12 @@ using System.Windows.Shapes;
 namespace InvoiceStorage.Views
 {
     /// <summary>
-    /// Interaction logic for DBProject.xaml
+    /// Interaction logic for InvoiceDatabaseLeftSideForNoResult.xaml
     /// </summary>
-    public partial class DBProject : UserControl
+    public partial class InvoiceDatabaseLeftSideForNoResult : UserControl
     {
-        public DBProject()
+        public InvoiceDatabaseLeftSideForNoResult()
         {
-            DataContext = new DbProjectVM();
             InitializeComponent();
         }
     }

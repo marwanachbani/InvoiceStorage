@@ -44,7 +44,7 @@
                 <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Button Style="{StaticResource CustomButtonStyle}" BorderBrush="Black" Background="Transparent" >
+                <Button Command="{Binding SwitchToCreateProjectCommand}" Style="{StaticResource CustomButtonStyle}" BorderBrush="Black" Background="Transparent" >
                     <StackPanel Width="1060" HorizontalAlignment="Left" Orientation="Horizontal">
                         <Image  Source="/Views/icons8-create-100.png" />
                         <TextBlock Margin="20,0" Foreground="White" VerticalAlignment="Center" Text="Create new Project Databases"/>
@@ -52,7 +52,7 @@
                 </Button>
             </Grid>
             <Grid Grid.Row="1">
-                <Button Style="{StaticResource CustomButtonStyle}" BorderBrush="Black" Background="Transparent" >
+                <Button Command="{Binding SwitchToExistDatabaseCommand}" Style="{StaticResource CustomButtonStyle}" BorderBrush="Black" Background="Transparent" >
                     <StackPanel Width="1060" HorizontalAlignment="Left" Orientation="Horizontal">
                         <Image  Source="/Views/icons8-access-100.png" />
                         <TextBlock Margin="20,0" Foreground="White" VerticalAlignment="Center" Text="Access to an Exist Datbase"/>

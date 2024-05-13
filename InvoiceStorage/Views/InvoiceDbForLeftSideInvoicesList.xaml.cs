@@ -17,14 +17,22 @@ using System.Windows.Shapes;
 namespace InvoiceStorage.Views
 {
     /// <summary>
-    /// Interaction logic for DBProject.xaml
+    /// Interaction logic for InvoiceDbForLeftSideInvoicesList.xaml
     /// </summary>
-    public partial class DBProject : UserControl
+    public partial class InvoiceDbForLeftSideInvoicesList : UserControl
     {
-        public DBProject()
+        public InvoiceDbForLeftSideInvoicesList()
         {
-            DataContext = new DbProjectVM();
+            DataContext = new InvoiceDbForLeftSideInvoicesListVM();
             InitializeComponent();
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(DataContext is InvoiceDbForLeftSideInvoicesListVM vM)
+            {
+                vM.SendSelectedInvoice();
+            }
         }
     }
 }

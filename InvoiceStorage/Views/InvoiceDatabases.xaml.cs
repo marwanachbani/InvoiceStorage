@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -17,14 +18,22 @@ using System.Windows.Shapes;
 namespace InvoiceStorage.Views
 {
     /// <summary>
-    /// Interaction logic for DBProject.xaml
+    /// Interaction logic for InvoiceDatabases.xaml
     /// </summary>
-    public partial class DBProject : UserControl
+    public partial class InvoiceDatabases : UserControl
     {
-        public DBProject()
+        public InvoiceDatabases()
         {
-            DataContext = new DbProjectVM();
+            DataContext = new InvoiceDatabasesVM();
             InitializeComponent();
+        }
+
+        private void Invoice_loaded(object sender, RoutedEventArgs e)
+        {
+            if(DataContext is InvoiceDatabasesVM databasesVM)
+            {
+                databasesVM.RefreshLeftSide();
+            }
         }
     }
 }

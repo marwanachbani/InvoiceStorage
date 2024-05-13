@@ -1,6 +1,7 @@
 ﻿using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.XWPF.UserModel;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,163 +16,101 @@ namespace WordConvertionNPoi
     {
         public async Task<string> ConvertInputInvoiceToWordWithoutShipping(string customer, DateTime date, ObservableCollection<InvoiceItem> items, decimal taxpercent, decimal tax, decimal redcpercent, decimal redc, decimal total)
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             try
             {
-                // Create a new Word document
-                XWPFDocument document = new XWPFDocument();
-
-                // Create a paragraph for the document
-                XWPFParagraph paragraph = document.CreateParagraph();
-
-                // Set up fonts
-                XWPFRun run = paragraph.CreateRun();
-                run.FontFamily = "Segoe";
-                run.FontSize = 14;
-                run.IsBold = true;
-
-                // Generate invoice number as hexadecimal GUID
-                string invoiceNumber = Guid.NewGuid().ToString("N").ToUpper(); // Convert to upper case
-
-                // Write invoice details to the document
-                run.SetText($"Invoice N°: {invoiceNumber}Date: {date.ToShortDateString()}Customer: {customer}");
-
-                // Add a table for invoice items
-                XWPFTable table = document.CreateTable(items.Count + 1, 4);
-
-                // Set table width
-                table.Width = 5000;
-
-                // Set table headers
-                string[] headers = { "Product Name", "Quantity", "Price", "Total" };
-                for (int i = 0; i < headers.Length; i++)
+                // Create a new Word document using EPPlus
+                using (ExcelPackage package = new ExcelPackage())
                 {
-                    table.GetRow(0).GetCell(i).SetText(headers[i]);
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;// Add a worksheet
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Invoice");
+
+                    // Set up header row
+                    worksheet.Cells[1, 1].Value = "Product Name";
+                    worksheet.Cells[1, 2].Value = "Quantity";
+                    worksheet.Cells[1, 3].Value = "Price";
+                    worksheet.Cells[1, 4].Value = "Total";
+
+                    // Fill data rows
+                    int row = 2;
+                    foreach (var item in items)
+                    {
+                        worksheet.Cells[row, 1].Value = item.ProductName;
+                        worksheet.Cells[row, 2].Value = item.Quantity;
+                        worksheet.Cells[row, 3].Value = item.Price;
+                        worksheet.Cells[row, 4].Value = item.Total;
+                        row++;
+                    }
+
+                    // Get the documents folder path
+                    string documentsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                    // Construct the file path
+                    string filePath = Path.Combine(documentsFolderPath, "invoice.xlsx");
+
+                    // Save the Excel package to a file
+                    File.WriteAllBytes(filePath, package.GetAsByteArray());
+
+                    await Task.CompletedTask;
+                    return $"Excel file created successfully at {filePath}";
                 }
-
-                // Fill table with invoice items
-                for (int i = 0; i < items.Count; i++)
-                {
-                    table.GetRow(i + 1).GetCell(0).SetText(items[i].ProductName);
-                    table.GetRow(i + 1).GetCell(1).SetText(items[i].Quantity.ToString());
-                    table.GetRow(i + 1).GetCell(2).SetText($"{items[i].Price}$");
-                    table.GetRow(i + 1).GetCell(3).SetText($"{items[i].Total}$");
-                }
-
-                // Add tax, reduction, and total to the document
-                paragraph = document.CreateParagraph();
-                run = paragraph.CreateRun();
-                run.FontFamily = "Segoe";
-                run.FontSize = 14;
-                run.IsBold = true;
-                run.SetText($"Total of items: {total}$ Tax: {taxpercent}% - {tax}$ Reduction: {redcpercent}% - {redc}$ Total: {total}$");
-
-                // Save the document to a file
-                string documentsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                string filePath = Path.Combine(documentsFolderPath, "invoice.docx");
-                using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-                {
-                    document.Write(stream);
-                }
-
-                await Task.CompletedTask;
-                return $"Word document created successfully at {filePath}";
             }
             catch (Exception ex)
             {
                 return ex.Message;
             }
         }
+
         public async Task<string> ConvertInputInvoiceToWordWithShipping(string customer, DateTime date, ObservableCollection<InvoiceItem> items, decimal taxpercent, decimal tax, decimal redcpercent, decimal redc, decimal total, string shippingMethod, string ShippingTo, decimal shippingPrice)
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             try
             {
-                // Create a new Word document
-                XWPFDocument document = new XWPFDocument();
-
-                // Create a paragraph for the invoice details
-                XWPFParagraph paragraph = document.CreateParagraph();
-
-                // Set up fonts and styling
-                XWPFRun run = paragraph.CreateRun();
-                run.FontFamily = "Segoe UI";
-                run.FontSize = 14;
-                run.IsBold = true;
-
-                // Generate invoice number as hexadecimal GUID
-                string invoiceNumber = Guid.NewGuid().ToString("N").ToUpper(); // Convert to upper case
-
-                // Write invoice header
-                run.SetText("Invoice");
-                run.AddBreak();
-                run.SetText($"N°: {invoiceNumber}");
-                run.AddBreak();
-                run.SetText($"Date: {date.ToShortDateString()}");
-                run.AddBreak();
-                run.SetText($"Customer: {customer}");
-                run.AddBreak();
-                run.AddBreak(); // Add extra line for spacing
-
-                // Create a table for items list
-                XWPFTable table = document.CreateTable(items.Count + 1, 4); // Add 1 row for headers
-
-                // Set table width
-                table.Width = 10000; // 100% width
-
-                // Write table headers
-                table.GetRow(0).GetCell(0).SetText("Product Name");
-                table.GetRow(0).GetCell(1).SetText("Quantity");
-                table.GetRow(0).GetCell(2).SetText("Price");
-                table.GetRow(0).GetCell(3).SetText("Total");
-
-                // Write invoice items to the table
-                for (int i = 0; i < items.Count; i++)
+                // Create a new Word document using EPPlus
+                using (ExcelPackage package = new ExcelPackage())
                 {
-                    table.GetRow(i + 1).GetCell(0).SetText(items[i].ProductName);
-                    table.GetRow(i + 1).GetCell(1).SetText(items[i].Quantity.ToString());
-                    table.GetRow(i + 1).GetCell(2).SetText($"{items[i].Price.ToString()}$");
-                    table.GetRow(i + 1).GetCell(3).SetText($"{items[i].Total.ToString()}$");
+                    // Add a worksheet
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Invoice");
+
+                    // Set up header row
+                    worksheet.Cells[1, 1].Value = "Product Name";
+                    worksheet.Cells[1, 2].Value = "Quantity";
+                    worksheet.Cells[1, 3].Value = "Price";
+                    worksheet.Cells[1, 4].Value = "Total";
+
+                    // Fill data rows
+                    int row = 2;
+                    foreach (var item in items)
+                    {
+                        worksheet.Cells[row, 1].Value = item.ProductName;
+                        worksheet.Cells[row, 2].Value = item.Quantity;
+                        worksheet.Cells[row, 3].Value = item.Price;
+                        worksheet.Cells[row, 4].Value = item.Total;
+                        row++;
+                    }
+
+                    // Add shipping details
+                    worksheet.Cells[row, 1].Value = "Shipping Method";
+                    worksheet.Cells[row, 2].Value = "Shipping To";
+                    worksheet.Cells[row, 3].Value = "Shipping Price";
+                    worksheet.Cells[row, 4].Value = "";
+
+                    worksheet.Cells[row + 1, 1].Value = shippingMethod;
+                    worksheet.Cells[row + 1, 2].Value = ShippingTo;
+                    worksheet.Cells[row + 1, 3].Value = shippingPrice;
+
+                    // Get the documents folder path
+                    string documentsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                    // Construct the file path
+                    string filePath = Path.Combine(documentsFolderPath, "invoice.xlsx");
+
+                    // Save the Excel package to a file
+                    File.WriteAllBytes(filePath, package.GetAsByteArray());
+
+                    await Task.CompletedTask;
+                    return $"Excel file created successfully at {filePath}";
                 }
-
-                // Create a new paragraph for calculations and shipping details
-                XWPFParagraph calcParagraph = document.CreateParagraph();
-
-                // Set up fonts and styling for calculations
-                XWPFRun calcRun = calcParagraph.CreateRun();
-                calcRun.FontFamily = "Segoe UI";
-                calcRun.FontSize = 14;
-                calcRun.IsBold = true;
-
-                // Write subtotal, tax, reduction, and total
-                calcRun.SetText($"Total of items: {total.ToString()}$");
-                calcRun.AddBreak();
-                calcRun.SetText($"Tax: {taxpercent}% - {tax.ToString()}$");
-                calcRun.AddBreak();
-                calcRun.SetText($"Reduction: {redcpercent}% - {redc.ToString()}$");
-                calcRun.AddBreak();
-                calcRun.SetText($"Total: {total.ToString()}$");
-                calcRun.AddBreak();
-                calcRun.AddBreak(); // Add extra line for spacing
-
-                // Write shipping details
-                calcRun.SetText("Shipping Details:");
-                calcRun.AddBreak();
-                calcRun.SetText($"Method: {shippingMethod}");
-                calcRun.AddBreak();
-                calcRun.SetText($"Shipping To: {ShippingTo}");
-                calcRun.AddBreak();
-                calcRun.SetText($"Shipping Price: {shippingPrice.ToString()}$");
-                calcRun.AddBreak();
-
-                // Save the document to a file
-                string documentsFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                string filePath = Path.Combine(documentsFolderPath, "invoice.docx");
-                using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-                {
-                    document.Write(stream);
-                }
-
-                await Task.CompletedTask;
-                return $"Word document created successfully at {filePath}";
             }
             catch (Exception ex)
             {
@@ -349,6 +288,6 @@ namespace WordConvertionNPoi
                 return ex.Message;
             }
         }
-
+       
     }
 }

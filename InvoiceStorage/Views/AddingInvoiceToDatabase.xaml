@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="InvoiceStorage.Views.AddingInvoiceToDatabase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InvoiceStorage.Views" xmlns:viewmodel="clr-namespace:InvoiceStorage.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddingInvoiceToDatabaseVM}"
+             mc:Ignorable="d" 
+              d:DesignHeight="760" d:DesignWidth="860">
+    <Grid Background="Black" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <StackPanel Orientation="Horizontal">
+                <Grid>
+                    <TextBlock Margin=" 10,20" Foreground="{Binding IsInfo}" Text="Info" FontSize="16"/>
+                </Grid>
+                <Grid>
+                    <TextBlock Margin="10,20" Foreground="{Binding IsItems}" Text="Items" FontSize="16"/>
+                </Grid>
+                <Grid>
+                    <TextBlock Margin="0,20" Foreground="{Binding IsTaxRedc}" Text="Tax/Reduction" FontSize="16"/>
+                </Grid>
+                
+                
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <UserControl Content="{Binding UserControl , Mode=TwoWay}"/>
+        </Grid>
+    </Grid>
+</UserControl>
